@@ -1,0 +1,127 @@
+<div class="d-flex justify-content-center align-items-center vh-100 ">
+    <div class="card p-4 w-50">
+      <h3 class="text-center mb-4">Regsiter</h3>
+       <div class="d-flex justify-content-center align-items-center" >
+        <form class="w-100" [formGroup]="registerForm" (ngSubmit)="Submit()">
+            <!-- Email Field -->
+            <div class="form-group row mb-3">
+                
+                <div class="col-sm-12">
+                  <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
+                </div>
+              
+               @if(registerForm.invalid&&registerForm.touched){
+                <div class="text-danger">
+                  @if(email?.errors?.['required'] && email?.touched){
+                    <p>this field is required </p>
+                  }
+                  @if(email?.errors?.['pattern'] && email?.touched){
+                    <p>email is not valid  </p>
+                  }
+                </div>
+               }
+               
+              </div>
+            <!-- Email Field -->
+            <div class="form-group row mb-3">
+            
+              <div class="col-sm-12">
+                <input type="userName" id="userName" class="form-control" placeholder="Enter your UserName" formControlName="userName">
+              </div>
+              @if(registerForm.invalid&&registerForm.touched){
+                <div class="text-danger">
+                    @if(userName?.errors?.['required'] &&userName?.touched){
+                      <p>this field is required </p>
+                    }
+                </div>
+              }
+            </div>
+            <div class="form-group row mb-3">
+            
+                <div class="col-sm-12">
+                  <input type="firstName" id="firstName" class="form-control" placeholder="Enter your FirstName" formControlName="firstName">
+                </div>
+                @if (registerForm.invalid&&registerForm.touched) {
+                 <div class="text-danger">
+                  @if(firstName?.errors?.['required']&&firstName?.touched){
+                    <p>this field is required </p>
+                  }
+                  @if(firstName?.errors?.['minlength']){
+                    <p>this field must be bigger than 6 </p>
+                  }
+                  @if(firstName?.errors?.['maxlength']){
+                    <p>this field must be less than 15 </p>
+                  }
+                 </div>
+                }
+            </div>
+
+            <div class="form-group row mb-3">
+            
+                <div class="col-sm-12">
+                  <input type="lastName" id="email" class="form-control" placeholder="Enter your LastName" formControlName="lastName">
+                  @if (registerForm.invalid&&registerForm.touched) {
+                    <div class="text-danger">
+                     @if(lastName?.errors?.['required']&&lastName?.touched){
+                       <p>this field is required </p>
+                     }
+                     @if(lastName?.errors?.['minlength']){
+                       <p>this field must be bigger than 6 </p>
+                     }
+                     @if(lastName?.errors?.['maxlength']){
+                       <p>this field must be less than 15 </p>
+                     }
+                    </div>
+                   }
+                </div>
+            </div>
+      
+            <!-- Password Field -->
+            <div class="form-group row mb-4">
+              
+              <div class="col-sm-12">
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
+                @if (registerForm.invalid&&registerForm.touched) {
+                  <div class="text-danger">
+                   @if(password?.errors?.['required']&&password?.touched){
+                     <p>this field is required </p>
+                   }
+                   @if(password?.errors?.['minlength']){
+                     <p>this field must be bigger than 6 </p>
+                   }
+                   @if(password?.errors?.['maxlength']){
+                     <p>this field must be less than 15 </p>
+                   }
+                  </div>
+                 }
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+            
+                <div class="col-sm-12">
+                  <input type="confirmPassword" id="password" class="form-control" placeholder="Enter your password Again" formControlName="confirmPassword">
+                  @if (registerForm.invalid&&registerForm.touched) {
+                    <div class="text-danger">
+                     @if(registerForm?.errors?.['passwordMismatch']&&confirmPassword?.touched ){
+                       <p>password is not match </p>
+                     }
+                   
+                    </div>
+                   }
+                </div>
+              </div>
+      
+            <!-- Login Button -->
+            <div class="d-flex justify-content-center">
+              <button  type="submit"  class="btn btn-primary btn-lg w-50">Regsiter</button>
+            </div>
+          </form>
+       </div>
+  
+      <!-- Additional Links -->
+      <div class="text-center mt-3">
+        <a href="#" class="text-decoration-none">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+  
