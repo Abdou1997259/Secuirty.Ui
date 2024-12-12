@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatchPasswordValidator } from '../../../../shared/shared/CustomValidators/confirm-password.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ registerForm!:FormGroup
 
 constructor(
  private fb:FormBuilder,
- private authService:AuthService
+ private authService:AuthService,
+ private router:Router
 ){}
   ngOnInit(): void {
     this.registerForm=this.fb.group({
@@ -36,7 +38,7 @@ constructor(
 
   Submit(){
      this.authService.Regsiter(this.registerForm.value).subscribe(result=>{
- 
+      this.router.navigate(['/auth/confirmAlert'])
      });
 
    }

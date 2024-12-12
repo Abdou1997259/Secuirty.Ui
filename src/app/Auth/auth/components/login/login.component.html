@@ -1,33 +1,62 @@
 <div class="d-flex justify-content-center align-items-center vh-100 ">
-    <div class="card p-4 w-50">
-      <h3 class="text-center mb-4">Login</h3>
-      <form class="w-100">
-        <!-- Email Field -->
-        <div class="form-group row mb-3">
-     
-          <div class="col-sm-12">
-            <input type="email" id="email" class="form-control" placeholder="Enter your email">
+  <div class="card p-4 w-50">
+    <h3 class="text-center mb-4">Login</h3>
+     <div class="d-flex justify-content-center align-items-center" >
+      <form class="w-100" [formGroup]="loginForm" (ngSubmit)="login()">
+          <!-- Email Field -->
+          <div class="form-group row mb-3">
+              
+              <div class="col-sm-12">
+                <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
+              </div>
+            
+             @if(loginForm.invalid&&loginForm.touched){
+              <div class="text-danger">
+                @if(email?.errors?.['required'] && email?.touched){
+                  <p>this field is required </p>
+                }
+                @if(email?.errors?.['pattern'] && email?.touched){
+                  <p>email is not valid  </p>
+                }
+              </div>
+             }
+             
+            </div>
+          <!-- Email Field -->
+ 
+    
+          <!-- Password Field -->
+          <div class="form-group row mb-4">
+            
+            <div class="col-sm-12">
+              <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
+              @if (loginForm.invalid&&loginForm.touched) {
+                <div class="text-danger">
+                 @if(password?.errors?.['required']&&password?.touched){
+                   <p>this field is required </p>
+                 }
+                 @if(password?.errors?.['minlength']){
+                   <p>this field must be bigger than 6 </p>
+                 }
+                 @if(password?.errors?.['maxlength']){
+                   <p>this field must be less than 15 </p>
+                 }
+                </div>
+               }
+            </div>
           </div>
-        </div>
-  
-        <!-- Password Field -->
-        <div class="form-group row mb-4">
-        
-          <div class="col-sm-12">
-            <input type="password" id="password" class="form-control" placeholder="Enter your password">
+
+    
+          <!-- Login Button -->
+          <div class="d-flex justify-content-center">
+            <button  type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-lg w-50">Login</button>
           </div>
-        </div>
-  
-        <!-- Login Button -->
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary btn-lg w-50">Login</button>
-        </div>
-      </form>
-  
-      <!-- Additional Links -->
-      <div class="text-center mt-3">
-        <a href="#" class="text-decoration-none">Forgot Password?</a>
-      </div>
+        </form>
+     </div>
+
+    <!-- Additional Links -->
+    <div class="text-center mt-3">
+      <a   routerLink="/auth/forget-password" class="text-decoration-none">Forgot Password?</a>
     </div>
   </div>
-  
+</div>
