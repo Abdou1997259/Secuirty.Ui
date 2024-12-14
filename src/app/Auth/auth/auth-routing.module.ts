@@ -19,7 +19,7 @@ const routes:Routes=[
     {path:'confirm',component:ConfirmedComponent},
     {path:'forget-password',component:ForgetPasswordComponent},
     {path:'reset-password',component:ResetPasswordComponent},
-    {path:"register/third-party/facebook",component:FacebookRegsiterComponent},
+    {path:"register/third-party/:provider",component:FacebookRegsiterComponent},
     {path:'product',component:ProductComponent,canActivate:[isAuthenticatedGuard]}
 ]
 @NgModule(
