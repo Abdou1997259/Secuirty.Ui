@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatchPasswordValidator } from '../../../../shared/shared/CustomValidators/confirm-password.validator';
 import { Router } from '@angular/router';
+declare const FB: any;
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 registerForm!:FormGroup
-
 
 constructor(
  private fb:FormBuilder,
@@ -23,8 +23,8 @@ constructor(
       email:this.fb.control('',[
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')
-        
-      
+
+
       ]
       ),
       userName:this.fb.control('',[Validators.required]),
@@ -42,7 +42,7 @@ constructor(
      });
 
    }
-  
+
   get email(){
     return this.registerForm.get('email');
   }
@@ -61,7 +61,18 @@ constructor(
   get confirmPassword(){
     return this.registerForm.get('confirmPassword');
   }
-   
+  registerWithFacebook(){
+    FB.login(async (fbResult: any) => {
+      debugger
+      if (fbResult.authResponse) {
+        const accessToken = fbResult.authResponse.accessToken;
+        const userId = fbResult.authResponse.userID;
+        this.router.navigateByUrl(`auth/register/third-party/facebook?access_token=${accessToken}&userId=${userId}`);
+      } else {
+
+      }
+    })
+  }
 }
 
 

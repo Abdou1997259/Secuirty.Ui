@@ -1,9 +1,10 @@
+import { ThirdPartyModel } from './../Models/third-party.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 
 import { BehaviorSubject, catchError, Observable, Subject, tap, throwError } from 'rxjs';
-import { AutModel } from '../Models/auth.model';
+import { AuthModel } from '../Models/auth.model';
 import { RegisterModel } from '../Models/register.model';
 import{BaseResponse} from '../../../models/reponse.model'
 import { Confirm } from '../Models/confirm.model';
@@ -27,18 +28,26 @@ FortGetPassword(email:string):Observable<BaseResponse<string>>{
  }).pipe(catchError(this.handleError));
 }
 
-Regsiter(model:RegisterModel):Observable<BaseResponse<AutModel>>{
-  return this._http.post<BaseResponse<AutModel>>(`${this.apiURL}Auth/Register`,model).pipe(catchError(this.handleError));
+Regsiter(model:RegisterModel):Observable<BaseResponse<AuthModel>>{
+  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/Register`,model).pipe(catchError(this.handleError));
 }
 Confirm(model:Confirm):Observable<BaseResponse<string>>{
    return this._http.post<BaseResponse<string>>(`${this.apiURL}Auth/ConfirmEmail`,model).pipe(catchError(this.handleError));
 }
-login(login:LoginModel):Observable<BaseResponse<AutModel>>{
- return this._http.post<BaseResponse<AutModel>>(`${this.apiURL}Auth/Login`,login).pipe(tap(response=>{
+login(login:LoginModel):Observable<BaseResponse<AuthModel>>{
+ return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/Login`,login).pipe(tap(response=>{
    if(response&&response.data){
     this.setTokens(response.data.accessToken,response.data.refreshToken)
    }
  }),catchError(this.handleError));
+}
+thirdPartyRegister(thirdParty:ThirdPartyModel):Observable<BaseResponse<AuthModel>>{
+  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/ThirdPartyRegister`,thirdParty)
+  .pipe(tap(response=>{
+    if(response&&response.data){
+      this.setTokens(response.data.accessToken,response.data.refreshToken)
+    }
+  }),catchError(this.handleError))
 }
 private hasToken(){
   const token=window.localStorage.getItem('AccessToken');
@@ -64,7 +73,7 @@ refreshToken(){
     accessToken:accessToken,
     RefreshToken:refreshToken
   };
-  return this._http.post<BaseResponse<AutModel>>(`${this.apiURL}Auth/RefreshToken`,refreshModel).pipe(
+  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/RefreshToken`,refreshModel).pipe(
     tap(response=>{
       if(response&&response.data){
         this.setTokens(response.data.accessToken, response.data.refreshToken);

@@ -9,6 +9,7 @@ import { ProductComponent } from "./components/product/product.component";
 import { isAuthenticatedGuard } from "./guards/is-authenticated.guard";
 import { ForgetPasswordComponent } from "./components/forget-password/forget-password.component";
 import { ResetPasswordComponent } from "./components/reset-password/reset-password.component";
+import { FacebookRegsiterComponent } from "./components/register-with-third-party/facebook-regsiter/facebook-regsiter.component";
 
 const routes:Routes=[
     {path:"",redirectTo:'login',pathMatch:'full'},
@@ -18,6 +19,7 @@ const routes:Routes=[
     {path:'confirm',component:ConfirmedComponent},
     {path:'forget-password',component:ForgetPasswordComponent},
     {path:'reset-password',component:ResetPasswordComponent},
+    {path:"register/third-party/facebook",component:FacebookRegsiterComponent},
     {path:'product',component:ProductComponent,canActivate:[isAuthenticatedGuard]}
 ]
 @NgModule(

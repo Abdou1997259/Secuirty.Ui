@@ -1,4 +1,4 @@
-export interface AutModel{
+export interface AuthModel{
     accessToken:string;
     refreshToken:string;
     refreshTokenExpiryDate:Date

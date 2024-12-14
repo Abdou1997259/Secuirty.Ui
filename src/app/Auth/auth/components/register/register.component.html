@@ -5,11 +5,11 @@
         <form class="w-100" [formGroup]="registerForm" (ngSubmit)="Submit()">
             <!-- Email Field -->
             <div class="form-group row mb-3">
-                
+
                 <div class="col-sm-12">
                   <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
                 </div>
-              
+
                @if(registerForm.invalid&&registerForm.touched){
                 <div class="text-danger">
                   @if(email?.errors?.['required'] && email?.touched){
@@ -20,11 +20,11 @@
                   }
                 </div>
                }
-               
+
               </div>
             <!-- Email Field -->
             <div class="form-group row mb-3">
-            
+
               <div class="col-sm-12">
                 <input type="userName" id="userName" class="form-control" placeholder="Enter your UserName" formControlName="userName">
               </div>
@@ -37,7 +37,7 @@
               }
             </div>
             <div class="form-group row mb-3">
-            
+
                 <div class="col-sm-12">
                   <input type="firstName" id="firstName" class="form-control" placeholder="Enter your FirstName" formControlName="firstName">
                 </div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="form-group row mb-3">
-            
+
                 <div class="col-sm-12">
                   <input type="lastName" id="email" class="form-control" placeholder="Enter your LastName" formControlName="lastName">
                   @if (registerForm.invalid&&registerForm.touched) {
@@ -75,10 +75,10 @@
                    }
                 </div>
             </div>
-      
+
             <!-- Password Field -->
             <div class="form-group row mb-4">
-              
+
               <div class="col-sm-12">
                 <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
                 @if (registerForm.invalid&&registerForm.touched) {
@@ -97,7 +97,7 @@
               </div>
             </div>
             <div class="form-group row mb-4">
-            
+
                 <div class="col-sm-12">
                   <input type="confirmPassword" id="confirmPassword" class="form-control" placeholder="Enter your password Again" formControlName="confirmPassword">
                   @if (registerForm.invalid&&registerForm.touched) {
@@ -105,21 +105,26 @@
                      @if(registerForm?.errors?.['passwordMismatch']&&confirmPassword?.touched ){
                        <p>password is not match </p>
                      }
-                   
+
                     </div>
                    }
                 </div>
               </div>
-      
+              <div class="d-flex justify-content-between my-3">
+                <div #googleButton></div>
+                <button style="width: 180px;" class="btn btn-primary btn-sm" (click)="registerWithFacebook()">
+                    Facebook
+                </button>
+            </div>
+
             <!-- Login Button -->
             <div class="d-flex justify-content-center">
               <button  type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-lg w-50">Regsiter</button>
             </div>
           </form>
        </div>
-  
+
       <!-- Additional Links -->
-   
+
     </div>
   </div>
-  

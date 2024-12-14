@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center align-items-center vh-100 ">
+    <div class="card p-4 w-50">
+      <h3 class="text-center mb-4">Regsiter</h3>
+       <div class="d-flex justify-content-center align-items-center" >
+        <form class="w-100" [formGroup]="facebookRegisterForm" (ngSubmit)="Submit()">
+            <!-- Email Field -->
+
+            <div class="form-group row mb-3">
+
+                <div class="col-sm-12">
+                  <input type="firstName" id="firstName" class="form-control" placeholder="Enter your FirstName" formControlName="firstName">
+                </div>
+                @if (facebookRegisterForm.invalid&&facebookRegisterForm.touched) {
+                 <div class="text-danger">
+                  @if(firstName?.errors?.['required']&&firstName?.touched){
+                    <p>this field is required </p>
+                  }
+                  @if(firstName?.errors?.['minlength']){
+                    <p>this field must be bigger than 6 </p>
+                  }
+                  @if(firstName?.errors?.['maxlength']){
+                    <p>this field must be less than 15 </p>
+                  }
+                 </div>
+                }
+            </div>
+
+            <div class="form-group row mb-3">
+
+                <div class="col-sm-12">
+                  <input type="lastName" id="email" class="form-control" placeholder="Enter your LastName" formControlName="lastName">
+                  @if (facebookRegisterForm.invalid&&facebookRegisterForm.touched) {
+                    <div class="text-danger">
+                     @if(lastName?.errors?.['required']&&lastName?.touched){
+                       <p>this field is required </p>
+                     }
+                     @if(lastName?.errors?.['minlength']){
+                       <p>this field must be bigger than 6 </p>
+                     }
+                     @if(lastName?.errors?.['maxlength']){
+                       <p>this field must be less than 15 </p>
+                     }
+                    </div>
+                   }
+                </div>
+            </div>
+
+            <!-- Password Field -->
+
+      
+
+            <!-- Login Button -->
+            <div class="d-flex justify-content-center">
+              <button  type="submit" [disabled]="facebookRegisterForm.invalid" class="btn btn-primary btn-lg w-50">Regsiter</button>
+            </div>
+          </form>
+       </div>
+
+      <!-- Additional Links -->
+
+    </div>
+  </div>

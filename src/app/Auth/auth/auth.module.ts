@@ -9,6 +9,7 @@ import { ConfirmedComponent } from './components/confirmed/confirmed.component';
 import { ProductComponent } from './components/product/product.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { FacebookRegsiterComponent } from './components/register-with-third-party/facebook-regsiter/facebook-regsiter.component';
 
 
 
@@ -20,7 +21,8 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
     ConfirmedComponent,
     ProductComponent,
     ResetPasswordComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    FacebookRegsiterComponent
   ],
   imports: [
     CommonModule,
