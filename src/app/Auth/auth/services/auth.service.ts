@@ -11,6 +11,7 @@ import { Confirm } from '../Models/confirm.model';
 import { LoginModel } from '../Models/login.model';
 import { RefreshTokenModel } from '../Models/refresh.token.model';
 import { ResetPasswordModel } from '../Models/reset-password.mode';
+import { LoginThirdPary } from '../Models/login-third-party.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,18 @@ login(login:LoginModel):Observable<BaseResponse<AuthModel>>{
    }
  }),catchError(this.handleError));
 }
+loginWithThridPary(loginWithThridPary:LoginThirdPary):Observable<BaseResponse<AuthModel>>{
+  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/LoginWithThirdPary`,loginWithThridPary).pipe(
+    tap((response)=>{
+      if(response&&response.data){
+        this.setTokens(response.data.accessToken,response.data.refreshToken)
+      }
+    }),
+    catchError(this.handleError)
+  )
+}
 thirdPartyRegister(thirdParty:ThirdPartyModel):Observable<BaseResponse<AuthModel>>{
+  
   return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/ThirdPartyRegister`,thirdParty)
   .pipe(tap(response=>{
     if(response&&response.data){

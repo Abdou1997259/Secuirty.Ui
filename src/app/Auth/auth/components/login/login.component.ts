@@ -1,7 +1,9 @@
+import { LoginThirdPary } from './../../Models/login-third-party.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+declare const FB:any;
 
 @Component({
   selector: 'app-login',
@@ -23,17 +25,17 @@ export class LoginComponent  implements OnInit{
       email:this.fb.control('',[
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')
-        
-      
+
+
       ]
       ),
-      
+
       password:this.fb.control('',[Validators.required,Validators.maxLength(15),Validators.minLength(6)]),
-     
+
     })
   }
 
-  
+
   get email(){
     return this.loginForm.get('email');
   }
@@ -46,13 +48,33 @@ export class LoginComponent  implements OnInit{
      this.router.navigate(['/auth/product']);
     },
     error:(error)=>{
-      
+
     }
    }
    )
   }
   SendResetConfirmationEmail(){
-    
+
   }
- 
+  loginWithFacebook(){
+
+    FB.login(async (fbResult: any) => {
+
+      const accesstoken=fbResult.authResponse.accessToken;
+      const userId=fbResult.authResponse.userID;
+      const loginThirdPary:LoginThirdPary={
+        accessToken:accesstoken,
+        userId:userId,
+        provider:'facebook'
+      }
+      this.authService.loginWithThridPary(loginThirdPary).subscribe({
+        next:(rest)=>{
+          this.router.navigate(['/auth/product']);
+
+        }
+      })
+    })
+
+  }
+
 }
