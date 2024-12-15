@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { MatchPasswordValidator } from '../../../../shared/shared/CustomValidators/confirm-password.validator';
+
 import { ResetPasswordModel } from '../../Models/reset-password.mode';
+import { ConfirmPasswordValidator } from '../../../../shared/shared/validators/confirm-password.validator';
 
 @Component({
   selector: 'app-reset-password',
@@ -27,7 +28,7 @@ constructor(
      
       password:this.fb.control('',[Validators.required,Validators.maxLength(15),Validators.minLength(6)]),
       confirmPassword:this.fb.control('',Validators.required)
-    },  { validators: MatchPasswordValidator('password', 'confirmPassword') })
+    },  { validators: ConfirmPasswordValidator() })
 
 
 

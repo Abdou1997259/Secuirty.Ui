@@ -7,7 +7,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from './shared/shared/shared.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,12 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
 
   ],
-  providers: [provideHttpClient(withFetch())],
+  providers:[provideHttpClient(withFetch())  ,  provideToastr({
+    timeOut: 2000,
+    positionClass: 'toast-bottom-right',
+    preventDuplicates: true,
+  
+  })  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

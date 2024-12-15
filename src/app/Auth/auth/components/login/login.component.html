@@ -46,7 +46,9 @@
             </div>
           </div>
 
-
+          @if (errorMessages.length>0) {
+            <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+           }
           <!-- Login Button -->
           <div class="d-flex justify-content-center">
             <button  type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-lg w-50">Login</button>

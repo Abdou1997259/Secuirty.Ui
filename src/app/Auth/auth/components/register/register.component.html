@@ -110,6 +110,9 @@
                    }
                 </div>
               </div>
+              @if (errorMessages.length>0) {
+                <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+               }
               <div class="d-flex justify-content-between my-3">
                 <div #googleButton></div>
                 <button style="width: 180px;" class="btn btn-primary btn-sm" (click)="registerWithFacebook()">

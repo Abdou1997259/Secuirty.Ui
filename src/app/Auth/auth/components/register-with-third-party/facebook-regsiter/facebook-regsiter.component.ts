@@ -50,7 +50,7 @@ export class FacebookRegsiterComponent implements OnInit ,AfterViewInit {
   }
 
 Submit(){
-
+debugger
   var thirdParty:ThirdPartyModel={
     accessToken:this.facebookToken,
     firstName:this.firstName?.value,

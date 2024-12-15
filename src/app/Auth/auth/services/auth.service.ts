@@ -30,7 +30,10 @@ FortGetPassword(email:string):Observable<BaseResponse<string>>{
 }
 
 Regsiter(model:RegisterModel):Observable<BaseResponse<AuthModel>>{
-  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/Register`,model).pipe(catchError(this.handleError));
+  return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/Register`,model).pipe(tap(x=>{
+  this.setTokens(x.data.accessToken,x.data.refreshToken)
+  }),
+    );
 }
 Confirm(model:Confirm):Observable<BaseResponse<string>>{
    return this._http.post<BaseResponse<string>>(`${this.apiURL}Auth/ConfirmEmail`,model).pipe(catchError(this.handleError));
@@ -40,7 +43,7 @@ login(login:LoginModel):Observable<BaseResponse<AuthModel>>{
    if(response&&response.data){
     this.setTokens(response.data.accessToken,response.data.refreshToken)
    }
- }),catchError(this.handleError));
+ }));
 }
 loginWithThridPary(loginWithThridPary:LoginThirdPary):Observable<BaseResponse<AuthModel>>{
   return this._http.post<BaseResponse<AuthModel>>(`${this.apiURL}Auth/LoginWithThirdPary`,loginWithThridPary).pipe(
@@ -116,8 +119,12 @@ isLoggedIn(): Observable<boolean> {
 ResetPassword(resetPasswordModel:ResetPasswordModel ):Observable<BaseResponse<string>>{
   return this._http.post<BaseResponse<string>>(`${this.apiURL}Auth/ResetPassword`,resetPasswordModel).pipe(catchError(this.handleError))
 }
-private handleError(error:BaseResponse<any>){
-  console.error(error);
-  return throwError(()=>new Error(error.error ||'Something went wrong. Please try again later.'))
+private handleError(error:any){
+
+  debugger
+  if(!error)
+    return throwError(()=>new Error("Something went wrong. Please try again later."))
+
+  return throwError(()=>new Error(error.error))
 }
 }
